@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111a18">
+    <meta name="description" content="A small, playable CHIP-8 emulator for the browser.">
+    <title>CHIP-8 Lab</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./src/main.js"></script>
+  </head>
+  <body>
+    <main class="workbench">
+      <header class="topbar">
+        <a class="wordmark" href="./" aria-label="CHIP-8 Lab home"><span class="brand-mark">8</span><span>CHIP-8 <b>LAB</b></span></a>
+        <div class="topbar-meta"><span class="live-dot"></span><span>INTERPRETER ONLINE</span><span class="build-label">V 1.0.0</span></div>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">A POCKET COMPUTER, REBUILT</p>
+        <h1 id="page-title">Make the old<br><span>pixels move.</span></h1>
+        <p class="intro-copy">A CHIP-8 interpreter for the browser. Load a program, pick up the keypad, and see what 1977 feels like.</p>
+      </section>
+
+      <section class="console" aria-label="Emulator console">
+        <div class="console-head">
+          <div class="console-title"><span class="console-icon">▦</span><div><p class="eyebrow">DISPLAY / 01</p><h2 id="rom-name">READY FOR A PROGRAM</h2></div></div>
+          <div class="status"><span class="status-light" id="status-light"></span><span id="status-text">PAUSED</span></div>
+        </div>
+
+        <div class="screen-wrap">
+          <div class="screen-frame"><canvas id="screen" width="640" height="320" aria-label="CHIP-8 64 by 32 pixel display"></canvas><div class="scanlines" aria-hidden="true"></div></div>
+          <div class="screen-caption"><span>64 × 32 PX</span><span id="cycle-count">000000 CYCLES</span><span>MONOCHROME</span></div>
+        </div>
+
+        <div class="controls">
+          <label class="load-button" for="rom-file"><span aria-hidden="true">↥</span> LOAD ROM<input id="rom-file" type="file" accept=".ch8,.rom,.bin,application/octet-stream"></label>
+          <button class="control-button primary" id="start-button" type="button"><span aria-hidden="true">▶</span> START</button>
+          <button class="control-button" id="pause-button" type="button" disabled><span aria-hidden="true">Ⅱ</span> PAUSE</button>
+          <button class="control-button" id="reset-button" type="button" disabled><span aria-hidden="true">↻</span> RESET</button>
+          <button class="control-button demo-button" id="demo-button" type="button">RUN DEMO</button>
+          <label class="speed-control" for="speed"><span>SPEED</span><input id="speed" type="range" min="200" max="1500" step="50" value="700"><output id="speed-value" for="speed">700 Hz</output></label>
+        </div>
+      </section>
+
+      <section class="lower-grid" aria-label="Emulator controls and state">
+        <div class="keypad-panel">
+          <div class="section-heading"><div><p class="eyebrow">INPUT / 02</p><h2>Hex keypad</h2></div><span class="tiny-note">CLICK OR USE KEYBOARD</span></div>
+          <div class="keypad" id="keypad" aria-label="CHIP-8 keypad">
+            <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button><button type="button" data-key="C">C</button>
+            <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button><button type="button" data-key="D">D</button>
+            <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button><button type="button" data-key="E">E</button>
+            <button type="button" data-key="A">A</button><button type="button" data-key="0">0</button><button type="button" data-key="B">B</button><button type="button" data-key="F">F</button>
+          </div>
+          <p class="key-hint"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><span>↔</span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>C</kbd></p>
+          <p class="key-hint"><kbd>Q</kbd><kbd>W</kbd><kbd>E</kbd><kbd>R</kbd><span>↔</span><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>D</kbd></p>
+          <p class="key-hint"><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><span>↔</span><kbd>7</kbd><kbd>8</kbd><kbd>9</kbd><kbd>E</kbd></p>
+          <p class="key-hint"><kbd>Z</kbd><kbd>X</kbd><kbd>C</kbd><kbd>V</kbd><span>↔</span><kbd>A</kbd><kbd>0</kbd><kbd>B</kbd><kbd>F</kbd></p>
+        </div>
+
+        <div class="state-panel">
+          <div class="section-heading"><div><p class="eyebrow">MACHINE STATE / 03</p><h2>Registers</h2></div><span class="tiny-note">HEX</span></div>
+          <div class="register-grid" id="registers" aria-live="polite"></div>
+          <div class="machine-meta">
+            <div><span>PROGRAM COUNTER</span><b id="pc-value">0200</b></div>
+            <div><span>INDEX REGISTER</span><b id="i-value">0000</b></div>
+            <div><span>DELAY TIMER</span><b id="delay-value">00</b></div>
+            <div><span>SOUND TIMER</span><b id="sound-value">00</b></div>
+          </div>
+          <p class="error-message" id="error-message" role="status"></p>
+        </div>
+      </section>
+
+      <footer><span>BUILT FOR THE JOY OF TINY MACHINES</span><span>CHIP-8 / 1977—NOW</span></footer>
+    </main>
+  </body>
+</html>
